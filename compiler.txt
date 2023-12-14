@@ -1,0 +1,14 @@
+g++ --version  //check for g++ compiler
+sudo apt install build-essential //to install compiler
+
+pwd  //to show default directory
+cd Desktop/  //to change directory
+touch hello.cpp  //to create cpp file
+g++ hello.cpp   //to compile
+./a.out  //to open output file created on desktop
+
+g++ hello.cpp -o output //to compile and create own output file
+
+
+
+

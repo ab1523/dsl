@@ -1,0 +1,278 @@
+#include<iostream>
+#include<stdio.h>
+#define MAX 10
+using namespace std;
+
+struct que
+{
+    int arr[MAX];
+    int front,rear;
+};
+
+void init(struct que *q)
+{
+    q->front=-1;
+    q->rear=-1;
+}
+
+void print(struct que q)
+{
+    int i;
+    i=q.front;
+    while(i!=q.rear)
+    {
+        cout<<"\t"<<q.arr[i];
+        i=(i+1)%MAX;
+    }
+    cout<<"\t"<<q.arr[q.rear];
+}
+
+int isempty(struct que q)
+{
+    return q.rear==-1?1:0;
+}
+
+int isfull(struct que q)
+{
+    return (q.rear+1)%MAX==q.front?1:0;
+}
+
+void addf(struct que *q,int data)
+{
+    if(isempty(*q))
+    {
+        q->front=q->rear=0;
+        q->arr[q->front]=data;
+    }
+    else
+    {
+        q->front=(q->front-1+MAX)%MAX;
+        q->arr[q->front]=data;
+    }
+}
+
+void addr(struct que *q,int data)
+{
+    if(isempty(*q))
+    {
+        q->front=q->rear=0;
+        q->arr[q->rear]=data;
+    }
+    else
+    {
+        q->rear=(q->rear+1)%MAX;
+        q->arr[q->rear]=data;
+    }
+}
+
+int delf(struct que *q)
+{
+    int data1;
+    data1=q->arr[q->front];
+    if(q->front==q->rear)
+        init(q);
+    else
+        q->front=(q->front+1)%MAX;
+    return data1;
+}
+
+int delr(struct que *q)
+{
+    int data1;
+    data1=q->arr[q->rear];
+    if(q->front==q->rear)
+        init(q);
+    else
+        q->rear=(q->rear-1+MAX)%MAX;
+    return data1;
+}
+
+int main()
+{
+    struct que q;
+    int data,ch;
+    init(&q);
+    while(ch!=6)
+    {
+        cout<<"\t\n1.Insert front"
+                "\t\n2.Insert rear"
+                "\t\n3.Delete front"
+                "\t\n4.Delete rear"
+                "\t\n5.Print"
+                "\t\n6.Exit";
+         cout<<"\nEnter your choice : ";
+        cin>>ch;
+        switch(ch)
+        {
+           case 1:
+              cout<<"\nEnter data to insert front : ";
+              cin>>data;
+              addf(&q,data);
+              break;
+
+           case 2:
+               cout<<"\nEnter the data to insert rear : ";
+               cin>>data;
+               addr(&q,data);
+               break;
+
+           case 3:
+               if(isempty(q))
+                   cout<<"\nDequeue is empty!!!";
+               else
+               {
+                   data=delf(&q);
+                   cout<<"\nDeleted data is : "<<data;
+               }
+               break;
+
+           case 4:
+               if(isempty(q))
+                   cout<<"\nDequeue is empty!!!";
+               else
+               {
+                   data=delr(&q);
+                   cout<<"\nDeleted data is : "<<data;
+               }
+               break;
+
+           case 5:
+                if(isempty(q))
+                    cout<<"\nDequeue is empty!!!";
+                else
+                {
+                    cout<<"\nDequeue elements are : ";
+                    print(q);
+                }
+                break;
+        }
+    }
+    return 0;
+}
+/*Output
+
+
+1.Insert front
+2.Insert rear
+3.Delete front
+4.Delete rear
+5.Print
+6.Exit
+Enter your choice : 1
+
+Enter data to insert front : 10
+
+1.Insert front
+2.Insert rear
+3.Delete front
+4.Delete rear
+5.Print
+6.Exit
+Enter your choice : 2
+
+Enter the data to insert rear : 20
+
+1.Insert front
+2.Insert rear
+3.Delete front
+4.Delete rear
+5.Print
+6.Exit
+Enter your choice : 5
+
+Dequeue elements are :  10      20
+1.Insert front
+2.Insert rear
+3.Delete front
+4.Delete rear
+5.Print
+6.Exit
+Enter your choice : 3
+
+Deleted data is : 10
+1.Insert front
+2.Insert rear
+3.Delete front
+4.Delete rear
+5.Print
+6.Exit
+Enter your choice : 4
+
+Deleted data is : 20
+1.Insert front
+2.Insert rear
+3.Delete front
+4.Delete rear
+5.Print
+6.Exit
+Enter your choice : 6
+
+--------------------------------
+Process exited after 58.8 seconds with return value 0
+Press any key to continue . . .
+
+Insert-at-rear: 
+a) Check whether deque is full or not. If full, 
+then insertion is not possible. 
+b) If rear = -1 //First element          
+    front <- 0          
+    rear  <- 0     
+    Else if rear = N - 1           
+     rear <- 0; //move rear to the first cell of deque     
+    Else     
+      rear <- rear+ 1     
+    End If     
+      dq[rear] <- key      
+      size <- size + 1
+
+insert-at-front: 
+a) Check whether deque is full or not. 
+   If full, then insertion is not possible.
+b) If front = -1 //First element          
+   front <- 0          
+   rear  <- 0     
+   Else if front = 0           
+   front <- N – 1 //move front to the last cell of deque 
+    Else  
+     front <- front - 1      
+    End If     
+    dq[front] <- key      
+    size <- size + 1
+
+Delete-from-rear: 
+a) Check whether deque is empty or not. If empty, 
+   then removal is not possible. 
+b) If deque has only one element           
+   front <- -1          
+   rear  <- -1     
+   Else If rear = 0 //rear points to the first index of deque
+           rear <- N – 1 //move rear to the last cell of deque
+     Else  rear <- rear - 1     
+     End If     size <- size – 1     
+     return the removed element 
+
+Delete-from-front: 
+a) Check whether deque is empty or not. 
+   If empty, then removal is not possible. 
+b) If deque has only one element           
+   front <- -1           
+   rear  <- -1     
+  Else If front = N – 1 //front points to the last index of deque 
+  front <- 0 //move front to the first cell of deque   
+  Else               
+  front <- front + 1     
+  End If    
+   size <- size – 1     
+  return the removed element
+
+
+g++ --version  //check for g++ compiler
+sudo apt install build-essential //to install compiler
+
+pwd  //to show default directory
+cd Desktop/  //to change directory
+touch hello.cpp  //to create cpp file
+g++ hello.cpp   //to compile
+./a.out  //to open output file created on desktop
+
+g++ hello.cpp -o output //to compile and create own output file*/

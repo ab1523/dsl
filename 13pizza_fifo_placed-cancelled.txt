@@ -1,0 +1,230 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+class pizza
+{
+ int front,rear,q[5];
+ public:
+ pizza()
+ {
+ front=-1;
+ rear=-1;
+ }
+ int isfull()
+ {
+
+if((front==0&&rear==4)||front==rear+1)
+ {
+ return 1;
+ }
+else
+{
+ return 0;
+ }
+ }
+ int isempty()
+ {
+ if(front==-1&&rear==-1)
+ {
+ return 1;
+ }
+ else
+{
+ return 0;
+ }
+ }
+ void add()
+ {
+ if(isfull()==0)
+ {
+ cout<<"\n Enter the Pizza ID: ";
+ if(front==-1&&rear==-1)
+ {
+ front=0;
+ rear=0;
+ cin>>q[rear];
+ }
+ else
+ {
+ rear=(rear+1)%5;
+ cin>>q[rear];
+ }
+ char c;
+ cout<<" Do you want to add another order ? ";
+ cin>>c;
+ if(c=='y'||c=='Y')
+ add();
+ }
+ else
+ {
+ cout<<"\n Orders are full ";
+ }
+
+ }
+ void serve()
+ {
+ if(isempty()==0)
+ {
+ if(front==rear)
+ {
+ cout<<"\n Order served is : "<<q[front];
+ front=-1;
+ rear=-1;
+ }
+ else
+ {
+ cout<<"\n Order served is : "<<q[front];
+ front=(front+1)%5;
+ }
+ }
+ else
+ {
+ cout<<"\n Orders are empty ";
+ }
+ }
+ void display()
+ {
+ if(isempty()==0)
+ {
+ for(int
+i=front;i!=rear;i=(i+1)%5)
+ {
+ cout<<q[i]<<" ";
+ }
+ cout<<q[rear];
+ }
+ else
+ {
+ cout<<"\n Orders are empty";
+ }
+ }
+ void check()
+ {
+ int ch;
+cout<<"\n\n * * * * PIZZA PARLOUR * * * * \n\n";
+ cout<<"\n 1. Add a Pizza \n 2. Display the Orders \n 3. Serve a pizza \n 4. Exit \n Enter your choice : ";
+ cin>>ch;
+switch(ch)
+{
+ case 1:
+ add();
+break;
+
+ case 2:
+
+display();
+ break;
+
+ case 3:
+
+serve();
+ break;
+
+ case 4:
+
+exit(0);
+
+ default:
+ cout<<"Invalid choice ";
+
+check();
+ }
+char ch1;
+cout<<"\n Do you want to continue? ";
+ cin>>ch1;
+ if(ch1=='y'||ch1=='Y')
+check();
+ }
+};
+int main()
+{
+ pizza p1;
+ p1.check();
+ return 0;
+}
+
+
+/*OUTPUT:
+
+ * * * * PIZZA PARLOUR * * * *
+
+
+ 1. Add a Pizza
+ 2. Display the Orders
+ 3. Serve a pizza
+ 4. Exit
+ Enter your choice : 1
+
+ Enter the Pizza ID: 1234
+ Do you want to add another order ? 2
+
+ Do you want to continue? y
+
+
+ * * * * PIZZA PARLOUR * * * *
+
+
+ 1. Add a Pizza
+ 2. Display the Orders
+ 3. Serve a pizza
+ 4. Exit
+ Enter your choice : 2
+1234
+ Do you want to continue? y
+
+
+ * * * * PIZZA PARLOUR * * * *
+
+
+ 1. Add a Pizza
+ 2. Display the Orders
+ 3. Serve a pizza
+ 4. Exit
+ Enter your choice : 3
+
+ Order served is : 1234
+ Do you want to continue? y
+
+
+ * * * * PIZZA PARLOUR * * * *
+
+
+ 1. Add a Pizza
+ 2. Display the Orders
+ 3. Serve a pizza
+ 4. Exit
+ Enter your choice : 4
+
+--------------------------------
+Process exited after 766.6 seconds with return value 0
+Press any key to continue . . .
+
+Implement Circular Queue using Array:
+Initialize an array queue of size n, where n is the 
+  maximum number of elements that the queue can hold.
+Initialize two variables front and rear to -1.
+Enqueue: To enqueue an element x into the queue, do the following:
+ Increment rear by 1.
+   If rear is equal to n, set rear to 0.
+   If front is -1, set front to 0.
+   Set queue[rear] to x.
+Dequeue: To dequeue an element from the queue, do the following:
+  Check if the queue is empty by checking if front is -1. 
+  If it is, return an error message indicating that the queue is empty.
+  Set x to queue[front].
+  If front is equal to rear, set front and rear to -1.
+  Otherwise, increment front by 1 and if front is equal to n, set front to 0.
+  Return x.
+
+
+
+g++ --version  //check for g++ compiler
+sudo apt install build-essential //to install compiler
+
+pwd  //to show default directory
+cd Desktop/  //to change directory
+touch hello.cpp  //to create cpp file
+g++ hello.cpp   //to compile
+./a.out  //to open output file created on desktop
+
+g++ hello.cpp -o output //to compile and create own output file*/

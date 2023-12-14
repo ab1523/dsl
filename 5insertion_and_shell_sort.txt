@@ -1,0 +1,71 @@
+def insertion_sort(list1):
+    for i in range (1,len(list)):
+        value=list1[i]
+        j=i-1
+        while j >= 0 and value < list1[j]:
+            list1[j + 1] = list1[j]  
+            j -= 1  
+            list1[j + 1] = value 
+        
+    return list1
+def shellsort(array,n):
+    interval=n//2
+    while interval >=0:
+        for i in range(interval,n):
+            temp=array[i]
+            j=i
+            while j>=interval and array[j-interval]>=temp:
+                array[j]=array[j-interval]
+                j-=interval
+                array[j]=temp
+        return array
+Tanmay=0
+while(Tanmay==0):
+ list=[]    
+ num_stu=int(input("how many number of students:"))
+ for i in range(num_stu):
+    temp=float(input("enter marks:"))
+    list.append(temp)
+ print("1.insertion sort") 
+ print("2.shell sort") 
+ choice=int(input("enter your choice:"))
+ if(choice==1):
+        print("the unsorted list is :",list)
+        print("the sorted marks list by inserion method is:",insertion_sort(list))
+        
+ elif(choice==2):
+        print("the unsorted list is :",list)
+        size=len(list)
+        shellsort(list,size)
+        print("sorted marks list by shell sort is  :", shellsort(list,size))
+ else:
+        print("invalid your choice")
+ Tanmay=int(input("Enter 0 to continue or any other number to exit:"))
+
+
+
+"""OUTPUT:
+how many number of students:6
+enter marks:95
+enter marks:85
+enter marks:88
+enter marks:66
+enter marks:75
+enter marks:72
+1.insertion sort
+2.shell sort
+enter your choice:1
+the unsorted list is : [95.0, 85.0, 88.0, 66.0, 75.0, 72.0]
+the sorted marks list by inserion method is: [66.0, 72.0, 75.0, 85.0, 88.0, 95.0]
+Enter 0 to continue or any other number to exit:0
+how many number of students:5
+enter marks:93
+enter marks:55
+enter marks:62
+enter marks:45
+enter marks:55
+1.insertion sort
+2.shell sort
+enter your choice:2
+the unsorted list is : [93.0, 55.0, 62.0, 45.0, 55.0]
+sorted marks list by shell sort is  : [55.0, 45.0, 62.0, 55.0, 93.0]"""
